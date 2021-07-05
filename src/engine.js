@@ -20,7 +20,7 @@
 					dragSelection: {
 						slop: 5
 					}
-				})
+				}),
 			]
 		});
 		this.wavesurfer = wavesurfer;
@@ -786,6 +786,11 @@
 		 app.listenFor ('RequestRegionClear', function () {
 			wavesurfer.regions.clear();
 		 });
+
+		//  app.listenFor ('RequestZoomSelection', function ( e ) {
+		// 	app.fireEvent ('DidZoom', [wavesurfer.ZoomFactor, (wavesurfer.LeftProgress/wavesurfer.getDuration()) * 100, wavesurfer.params.verticalZoom], e);
+		//  });
+
 		app.listenFor ('RequestRegionSet', function ( start, end ) {
 			if (!q.is_ready) return ;
 

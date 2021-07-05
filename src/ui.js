@@ -2857,13 +2857,20 @@
 		
 		var btn_clear_selection = d.createElement ('button');
 		btn_clear_selection.setAttribute('tabIndex', -1);
-		btn_clear_selection.className = 'pk_btn icon-clearsel pk_inact';
-		btn_clear_selection.innerHTML = '<span>Clear Selection (Q key)</span>';
+		btn_clear_selection.className = 'pk_btn fa_btn extra-margin-left fas fas fa-ban pk_inact';
+		btn_clear_selection.innerHTML = '<span>Clear selection (Q key)</span>';
 
+		// // Zoom selection
+		var btn_zoom_selection = d.createElement ('button');
+		btn_zoom_selection.setAttribute('tabIndex', -1);
+		btn_zoom_selection.className = 'pk_btn fa_btn fas fa-search pk_inact';
+		btn_zoom_selection.innerHTML = '<span>Zoom in selection</span>';
+		
 		var sel_spans = selection.getElementsByClassName('pk_dat');
 		UI.listenFor ('DidCreateRegion', function ( region ) {
 			copy_btn.classList.remove ('pk_inact');
 			cut_btn.classList.remove ('pk_inact');
+			btn_zoom_selection.classList.remove ('pk_inact');
 			btn_clear_selection.classList.remove  ('pk_inact');
 			
 			if (region)
@@ -2877,6 +2884,7 @@
 		UI.listenFor ('DidDestroyRegion', function () {
 			copy_btn.classList.add ('pk_inact');
 			cut_btn.classList.add  ('pk_inact');
+			btn_zoom_selection.classList.add  ('pk_inact');
 			btn_clear_selection.classList.add  ('pk_inact');
 
 			if (!sel_spans[0]) sel_spans = document.querySelectorAll('.pk_sellist .pk_dat');
@@ -2889,10 +2897,14 @@
 			UI.fireEvent( 'RequestRegionClear');
 			this.blur ();
 		};
+
+		btn_zoom_selection.onclick = function () {
+			// UI.fireEvent( 'RequestZoomSelection');
+		};
+
 		selection.appendChild ( btn_clear_selection );
-		
-		toolbar.appendChild ( timing );
-		
+		selection.appendChild ( btn_zoom_selection );
+		toolbar.appendChild ( timing );		
 		
 		UI.listenFor ('DidChanToggle', function ( chan, val ) {
 			var region = PKAudioEditor.engine.wavesurfer.regions.list[0];
