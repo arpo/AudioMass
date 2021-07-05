@@ -475,6 +475,15 @@
 		app.listenFor ('RequestPlay', function ( x ) { // unique listener
 			app.fireEvent ('RequestActionRecordStop');
 
+			// If loop is turned on seek close to the end of the selection.  
+			if(wavesurfer.regions.list && wavesurfer.regions.list[0] && wavesurfer.regions.list[0].loop) {
+				const timeFromEnd = 1;
+				if (wavesurfer.regions.list[0].end - wavesurfer.regions.list[0].start  > timeFromEnd) {
+					const seekTo = wavesurfer.regions.list[0].end - timeFromEnd;
+					app.fireEvent ('RequestSeekTo', seekTo / wavesurfer.getDuration ());
+				}
+			}
+
 			if ( !x && wavesurfer.isPlaying ()) {
 				wavesurfer.stop ();
 				wavesurfer.play ();
