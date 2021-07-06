@@ -4205,10 +4205,10 @@ var WaveSurfer = function (_util$Observer) {
                 _this5.fireEvent ('DidZoom', event);
             };
             this.SetZoom = function ( where, step, event, is_redo ) {
+                
                 var redo = false;
                 var width = _this5.drawer.width;
                 var duration = _this5.VisibleDuration;
-
                 var last_ = width * (_this5.ZoomFactor - (step/Math.abs(step))) >> 0;
                 var sampleSize_ = _this5.backend.buffer.length / last_;
                 if (sampleSize_ < 1.0) {
@@ -4218,29 +4218,38 @@ var WaveSurfer = function (_util$Observer) {
 
                 if (!where) where = 0.5; // make "where" be the cursor? #### 
 
-                if (step < 0) {
+                const limit1 = 5;
+                const value1 = 4;
 
+                const limit2 = 30;
+                const value2 = 7;
+
+                const limit3 = 100;
+                const value3 = 15;
+
+                const getNumberToAdd = (n, dir) => {
+                    let rv = Math.round(n / 10) + 1;
+                    if(_this5.ZoomFactor + rv < 3000) return _this5.ZoomFactor + (rv * dir);
+                    else return _this5.ZoomFactor;
+                };
+                
+                if (step < 0) { 
                     if (_this5.ZoomFactor != _this5.ZoomFactor >> 0) {
                         _this5.ZoomFactor = (_this5.ZoomFactor >> 0) + 1;
                     } else {
-                        if (_this5.ZoomFactor > 6) _this5.ZoomFactor += 1;else _this5.ZoomFactor += 1;
+                        _this5.ZoomFactor = getNumberToAdd(_this5.ZoomFactor, 1);
                     }
                     // set the left offset in such a way that mouse position stays stable
                     _this5.LeftProgress = _this5.LeftProgress + where * (duration / _this5.ZoomFactor);
                 } else if (_this5.ZoomFactor > 1) {
                     if (_this5.ZoomFactor != _this5.ZoomFactor >> 0) {
                         _this5.ZoomFactor = _this5.ZoomFactor >> 0;
-                    } else {
-                        if (_this5.ZoomFactor > 6) {
-                            if (!is_redo) redo = true;
-
-                            _this5.ZoomFactor -= 1;
-
-                        } else _this5.ZoomFactor -= 1;
+                    } else {    
+                        _this5.ZoomFactor = getNumberToAdd(_this5.ZoomFactor, -1);
                     }
                     if (_this5.ZoomFactor === 1) _this5.LeftProgress = 0;else _this5.LeftProgress = _this5.LeftProgress - where * (duration / _this5.ZoomFactor);
                 }
-
+                
                 _this5.ForceDraw ();
                 _this5.fireEvent ('DidZoom', event);
 
