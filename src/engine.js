@@ -795,13 +795,7 @@
 		 });
 
 		 app.listenFor ('RequestAddBarSelection', function ( e ) {
-			 // console.log(wavesurfer.getCurrentTime());
-			 const currentPBM = 127;
-			 const numberOfBeatsToSelect = 4;
-			 console.log(app.engine.durationOfABeat(currentPBM));
-			 app.engine.SetSelection(wavesurfer.getCurrentTime(), wavesurfer.getCurrentTime() + app.engine.durationOfABeat(currentPBM) * numberOfBeatsToSelect);
-			 // wavesurfer.regions
-			//app.fireEvent ('DidZoom', [wavesurfer.ZoomFactor, (wavesurfer.LeftProgress/wavesurfer.getDuration()) * 100, wavesurfer.params.verticalZoom], e);
+			 app.engine.SetSelection(wavesurfer.getCurrentTime(), wavesurfer.getCurrentTime() + app.engine.getBarDur());
 		 });
 
 		app.listenFor ('RequestSetSelection', function ( start, end ) {
@@ -810,8 +804,14 @@
 
 		var copy_buffer = null;
 
-		this.durationOfABeat = function (bpm) {
-			return 60 / bpm;
+		this.currentBPM = 127;
+
+		this.getBeatDur = function () {
+			return 60 / this.currentBPM;
+		};
+
+		this.getBarDur = function () {
+			return 60 * 4 / this.currentBPM;
 		};
 
 		this.GetCopyBuff = function () {

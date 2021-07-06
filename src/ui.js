@@ -2136,6 +2136,7 @@
 		// REWING / BACK BTN
 		var btn_back_focus = false;
 		var btn_back_tm = null;
+		// Move playHead by clicking
 		btn_back_jump.onclick = function() {
 
 			if (!btn_back_focus)
@@ -2144,13 +2145,7 @@
 					clearTimeout(btn_back_tm);
 					btn_back_tm = null;
 				}
-
-				var big_step = PKAudioEditor.engine.wavesurfer.getDuration () / 20;
-				var zoom = PKAudioEditor.engine.wavesurfer.ZoomFactor;
-				big_step /= ((zoom/2)+0.5);
-				if (big_step > 1) big_step = big_step << 0;
-
-				UI.fireEvent ('RequestSkipBack', big_step);
+				UI.fireEvent ('RequestSkipBack', PKAudioEditor.engine.getBarDur());
 			}
 
 			this.blur();
@@ -2165,6 +2160,7 @@
 			this.blur();
 		};
 
+		// Move playHead by holding down button
 		btn_back_jump.onfocus = function() {
 			var btn = this;
 			btn_back_focus = false;
@@ -2221,13 +2217,7 @@
 					clearTimeout(btn_frnt_tm);
 					btn_frnt_tm = null;
 				}
-
-				var big_step = PKAudioEditor.engine.wavesurfer.getDuration () / 20;
-				var zoom = PKAudioEditor.engine.wavesurfer.ZoomFactor;
-				big_step /= ((zoom/2)+0.5);
-				if (big_step > 1) big_step = big_step << 0;
-
-				UI.fireEvent ('RequestSkipFront', big_step);
+				UI.fireEvent ('RequestSkipFront', PKAudioEditor.engine.getBarDur());
 			}
 
 			this.blur();
@@ -2285,63 +2275,19 @@
 		var k_arr_bck_time = 0;
 		var k_arr_bck_mult = 1;
 		var k_arr_bck_skip_frames = 4;
+
+		// Move playHead wwwith left arrow
 		UI.KeyHandler.addCallback ('KeyArrowBack', function ( key, c, ev ) {
 			if (UI.InteractionHandler.on || !PKAudioEditor.engine.is_ready) return ;
-
-			var time = ev.timeStamp;
-			var diff = time - k_arr_bck_time;
-
-			if (diff > 158) {
-				k_arr_bck_mult = 1;
-				k_arr_bck_skip_frames = 4;
-			} else {
-				if (--k_arr_bck_skip_frames < 0 && k_arr_bck_mult < 6.0)
-					k_arr_bck_mult += 0.05;
-			}
-
-			k_arr_bck_time = time;
-
-			// get zoom factor
-			var jump = 0.5;
-			var zoom = PKAudioEditor.engine.wavesurfer.ZoomFactor;
-			var total_dur = PKAudioEditor.engine.wavesurfer.getDuration ();			
-
-			jump = Math.max(total_dur / 200, 0.05);
-			jump /= zoom;
-			jump *= k_arr_bck_mult;
-
-			UI.fireEvent( 'RequestSkipBack', jump );
+			UI.fireEvent( 'RequestSkipBack', PKAudioEditor.engine.getBarDur());
 		}, [37]);
 
 		var k_arr_frnt_time = 0;
 		var k_arr_frnt_mult = 1;
 		var k_arr_frnt_skip_frames = 4;
 		UI.KeyHandler.addCallback ('KeyArrowFront', function ( key, c, ev ) {
-			if (UI.InteractionHandler.on || !PKAudioEditor.engine.is_ready) return ;
-
-			var time = ev.timeStamp;
-			var diff = time - k_arr_frnt_time;
-
-			if (diff > 158) {
-				k_arr_frnt_mult = 1;
-				k_arr_frnt_skip_frames = 4;
-			} else {
-				if (--k_arr_frnt_skip_frames < 0 && k_arr_frnt_mult < 6.0)
-					k_arr_frnt_mult += 0.05;
-			}
-
-			k_arr_frnt_time = time;
-
-			var jump = 0.5;
-			var zoom = PKAudioEditor.engine.wavesurfer.ZoomFactor;
-			var total_dur = PKAudioEditor.engine.wavesurfer.getDuration ();			
-
-			jump = Math.max(total_dur / 200, 0.05);
-
-			jump /= zoom;
-			jump *= k_arr_frnt_mult;
-
-			UI.fireEvent( 'RequestSkipFront', jump );
+			if (UI.InteractionHandler.on || !PKAudioEditor.engine.is_ready) return 
+			UI.fireEvent( 'RequestSkipFront', PKAudioEditor.engine.getBarDur());
 		}, [39]);
 		UI.KeyHandler.addCallback ('KeyShiftArrowBack', function ( key ) {
 			if (UI.InteractionHandler.on || !PKAudioEditor.engine.is_ready) return ;
@@ -2861,16 +2807,16 @@
 		btn_clear_selection.innerHTML = '<span>Clear selection (Q key)</span>';
 
 		// // Zoom selection
-		var btn_zoom_selection = d.createElement ('button');
-		btn_zoom_selection.setAttribute('tabIndex', -1);
-		btn_zoom_selection.className = 'pk_btn fa_btn fas fa-search';
-		btn_zoom_selection.innerHTML = '<span>Zoom in selection</span>';
+		var btn_bar_selection = d.createElement ('button');
+		btn_bar_selection.setAttribute('tabIndex', -1);
+		btn_bar_selection.className = 'pk_btn fa_btn fas fa-search';
+		btn_bar_selection.innerHTML = '<span>Select a bar</span>';
 		
 		var sel_spans = selection.getElementsByClassName('pk_dat');
 		UI.listenFor ('DidCreateRegion', function ( region ) {
 			copy_btn.classList.remove ('pk_inact');
 			cut_btn.classList.remove ('pk_inact');
-			// btn_zoom_selection.classList.remove ('pk_inact');
+			// btn_bar_selection.classList.remove ('pk_inact');
 			btn_clear_selection.classList.remove  ('pk_inact');
 			
 			if (region)
@@ -2884,7 +2830,7 @@
 		UI.listenFor ('DidDestroyRegion', function () {
 			copy_btn.classList.add ('pk_inact');
 			cut_btn.classList.add  ('pk_inact');
-			// btn_zoom_selection.classList.add  ('pk_inact');
+			// btn_bar_selection.classList.add  ('pk_inact');
 			btn_clear_selection.classList.add  ('pk_inact');
 
 			if (!sel_spans[0]) sel_spans = document.querySelectorAll('.pk_sellist .pk_dat');
@@ -2898,12 +2844,13 @@
 			this.blur ();
 		};
 
-		btn_zoom_selection.onclick = function () {
+		btn_bar_selection.onclick = function () {
 			UI.fireEvent( 'RequestAddBarSelection');
+			this.blur ();
 		};
 
 		selection.appendChild ( btn_clear_selection );
-		selection.appendChild ( btn_zoom_selection );
+		selection.appendChild ( btn_bar_selection );
 		toolbar.appendChild ( timing );		
 		
 		UI.listenFor ('DidChanToggle', function ( chan, val ) {
