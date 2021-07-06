@@ -17,6 +17,7 @@
 			height:w.innerHeight - 168,
 			plugins: [
 				WaveSurfer.regions.create({
+					drag: false,
 					dragSelection: {
 						slop: 5
 					}
@@ -2352,7 +2353,6 @@
 		var drag_move = function ( e ) {
 			
 			var diff = drag_x - e.clientX;
-			
 			// find diff percentage from full width...
 			
 			// drag the waveform now
@@ -2366,7 +2366,6 @@
 
 			// compute new ZoomFactor...
 			diff *= wv.ZoomFactor;
-
 			// compute availabel left ZoomFactor
 			if (mode === -1)
 			{
