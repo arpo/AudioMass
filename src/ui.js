@@ -2145,7 +2145,7 @@
 					clearTimeout(btn_back_tm);
 					btn_back_tm = null;
 				}
-				UI.fireEvent ('RequestSkipBack', PKAudioEditor.engine.getBarDur());
+				UI.fireEvent ('RequestSkipBack', PKAudioEditor.engine.getSkipStepSize());
 			}
 
 			this.blur();
@@ -2217,7 +2217,7 @@
 					clearTimeout(btn_frnt_tm);
 					btn_frnt_tm = null;
 				}
-				UI.fireEvent ('RequestSkipFront', PKAudioEditor.engine.getBarDur());
+				UI.fireEvent ('RequestSkipFront', PKAudioEditor.engine.getSkipStepSize());
 			}
 
 			this.blur();
@@ -2279,7 +2279,7 @@
 		// Move playHead wwwith left arrow
 		UI.KeyHandler.addCallback ('KeyArrowBack', function ( key, c, ev ) {
 			if (UI.InteractionHandler.on || !PKAudioEditor.engine.is_ready) return ;
-			UI.fireEvent( 'RequestSkipBack', PKAudioEditor.engine.getBarDur());
+			UI.fireEvent( 'RequestSkipBack', PKAudioEditor.engine.getSkipStepSize());
 		}, [37]);
 
 		var k_arr_frnt_time = 0;
@@ -2287,7 +2287,7 @@
 		var k_arr_frnt_skip_frames = 4;
 		UI.KeyHandler.addCallback ('KeyArrowFront', function ( key, c, ev ) {
 			if (UI.InteractionHandler.on || !PKAudioEditor.engine.is_ready) return 
-			UI.fireEvent( 'RequestSkipFront', PKAudioEditor.engine.getBarDur());
+			UI.fireEvent( 'RequestSkipFront', PKAudioEditor.engine.getSkipStepSize());
 		}, [39]);
 		UI.KeyHandler.addCallback ('KeyShiftArrowBack', function ( key ) {
 			if (UI.InteractionHandler.on || !PKAudioEditor.engine.is_ready) return ;

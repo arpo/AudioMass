@@ -731,7 +731,7 @@
 		// }, false);
 		wavesurfer.container.addEventListener ('dblclick', function( e ) {
 			if (!q.is_ready) return ;
-			if (!app.ui.KeyHandler.keyMap[16])
+			if (!app.ui.KeyHandler.keyMap[16]) // Shift
 				wavesurfer.regions.clear();
 		}, false);
 		
@@ -812,6 +812,13 @@
 
 		this.getBarDur = function () {
 			return 60 * 4 / this.currentBPM;
+		};
+
+		this.getSkipStepSize = function () {
+			
+			let stepSize = this.getBarDur() * 4;
+			if (app.ui.KeyHandler.keyMap[18]) stepSize *= 0.25; // Alt/Option
+			return stepSize;
 		};
 
 		this.GetCopyBuff = function () {
