@@ -2289,7 +2289,18 @@
 			if (UI.InteractionHandler.on || !PKAudioEditor.engine.is_ready) return 
 			UI.fireEvent( 'RequestSkipFront', PKAudioEditor.engine.getSkipStepSize());
 		}, [39]);
+
+
 		UI.KeyHandler.addCallback ('KeyShiftArrowBack', function ( key ) {
+			if (UI.InteractionHandler.on || !PKAudioEditor.engine.is_ready) return ;
+			console.log('Select right');
+		}, [16, 37]);
+		UI.KeyHandler.addCallback ('KeyShiftArrowFront', function ( key ) {
+			if (UI.InteractionHandler.on || !PKAudioEditor.engine.is_ready) return ;
+			console.log('Select left');
+		}, [16, 39]);
+
+		UI.KeyHandler.addCallback ('KeyArrowUp', function ( key ) {
 			if (UI.InteractionHandler.on || !PKAudioEditor.engine.is_ready) return ;
 
 			var region = PKAudioEditor.engine.wavesurfer.regions.list[0];
@@ -2316,8 +2327,8 @@
 			}
 			
 			UI.fireEvent( 'RequestSeekTo', 0 );
-		}, [16, 37]);
-		UI.KeyHandler.addCallback ('KeyShiftArrowFront', function ( key ) {
+		}, [38]);
+		UI.KeyHandler.addCallback ('KeyArrowDown', function ( key ) {
 			if (UI.InteractionHandler.on || !PKAudioEditor.engine.is_ready) return ;
 
 			// if region skip to the region
@@ -2345,7 +2356,7 @@
 			}
 
 			UI.fireEvent( 'RequestSeekTo', 0.994 );
-		}, [16, 39]);
+		}, [40]);
 		UI.KeyHandler.addCallback ('killctx', function ( e ) {
 			var event = new Event ('killCTX', {bubbles: true});
 			document.body.dispatchEvent (event);
