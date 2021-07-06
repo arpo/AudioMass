@@ -25,6 +25,7 @@
 			]
 		});
 		this.wavesurfer = wavesurfer;
+		this.wavesurfer.regions.params.hasSelection = false;
 
 		var AudioUtils = new app._deps.audioutils ( app, wavesurfer );
 		q.is_ready = false;
@@ -625,7 +626,13 @@
 		}, [16, 88]);
 		app.ui.KeyHandler.addCallback ('KeyShiftSelectAll' + app.id, function ( key ) {
 			if (app.ui.InteractionHandler.on) return ;
-			app.fireEvent ('RequestSelect');
+			if(wavesurfer.regions.params.hasSelection) {
+				wavesurfer.regions.params.hasSelection = false;
+				app.fireEvent ('RequestDeselect');
+			} else {
+				wavesurfer.regions.params.hasSelection = true;
+				app.fireEvent ('RequestSelect');
+			}
 		}, [16, 65]);
 		app.ui.KeyHandler.addSingleCallback ('KeyLoopToggle', function ( e ) {
 			if (app.ui.InteractionHandler.on) return ;
@@ -685,7 +692,7 @@
 		});
 		app.listenFor ('RequestDeselect', function() {
 			wavesurfer.regions.clear ();
-			app.fireEvent ('RequestSeekTo', 0);
+			// app.fireEvent ('RequestSeekTo', 0);
 		});
 		
 		(function() {
