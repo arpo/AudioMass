@@ -716,15 +716,14 @@
 			});
 		})();
 		
-		wavesurfer.container.addEventListener('dblclick', function(e){
-			app.fireEvent ('RequestSelect', false, 
-				[ wavesurfer.LeftProgress,
-				wavesurfer.LeftProgress + wavesurfer.VisibleDuration ]
-			);
-		}, false);
-		wavesurfer.container.addEventListener ('click', function( e ) {
+		// wavesurfer.container.addEventListener('dblclick', function(e){
+		// 	app.fireEvent ('RequestSelect', false, 
+		// 		[ wavesurfer.LeftProgress,
+		// 		wavesurfer.LeftProgress + wavesurfer.VisibleDuration ]
+		// 	);
+		// }, false);
+		wavesurfer.container.addEventListener ('dblclick', function( e ) {
 			if (!q.is_ready) return ;
-			
 			if (!app.ui.KeyHandler.keyMap[16])
 				wavesurfer.regions.clear();
 		}, false);
