@@ -692,7 +692,7 @@ var Region = function () {
             var wv = engine.wavesurfer;
             var bk = wv.backend;
             if (!this.buffer) {
-                this.buffer = engine.GetSel ();
+                this.buffer = engine.GetSelection ();
 
                 bk.reg = {
                     pos: {

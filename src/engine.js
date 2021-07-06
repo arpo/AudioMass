@@ -794,11 +794,23 @@
 			wavesurfer.regions.clear();
 		 });
 
-		//  app.listenFor ('RequestZoomSelection', function ( e ) {
-		// 	app.fireEvent ('DidZoom', [wavesurfer.ZoomFactor, (wavesurfer.LeftProgress/wavesurfer.getDuration()) * 100, wavesurfer.params.verticalZoom], e);
-		//  });
+		 app.listenFor ('RequestAddBarSelection', function ( e ) {
+			 console.log(wavesurfer.getCurrentTime());
+			 // wavesurfer.regions
+			//app.fireEvent ('DidZoom', [wavesurfer.ZoomFactor, (wavesurfer.LeftProgress/wavesurfer.getDuration()) * 100, wavesurfer.params.verticalZoom], e);
+		 });
 
-		app.listenFor ('RequestRegionSet', function ( start, end ) {
+		app.listenFor ('RequestSetSelection', function ( start, end ) {
+			app.engine.SetSelection();
+		});
+
+		var copy_buffer = null;
+
+		this.GetCopyBuff = function () {
+			return (copy_buffer);
+		};
+
+		this.SetSelection = (start, end) => {
 			if (!q.is_ready) return ;
 
 			if (!start) {
@@ -815,15 +827,9 @@
 				end:   end,
 				id:'t'
 			});
-		});
-
-		var copy_buffer = null;
-
-		this.GetCopyBuff = function () {
-			return (copy_buffer);
 		};
 
-		this.GetSel = function () {
+		this.GetSelection = function () {
 			var region = wavesurfer.regions.list[0];
 			if (!region) return (false);
 

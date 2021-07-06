@@ -389,7 +389,7 @@
 								var buff = app.engine.wavesurfer.backend.buffer;
 
 								if (type === 'copy') buff = app.engine.GetCopyBuff ();
-								else if (type === 'sel') buff = app.engine.GetSel ();
+								else if (type === 'sel') buff = app.engine.GetSelection ();
 
 								var func = function ( fls ) {								
 									var rr = Math.random().toString(36).substring(7);
@@ -2574,7 +2574,7 @@
 			var main_context = PKAudioEditor._deps.ContextMenu ( avv );
 
 			main_context.addOption ('Select Visible View', function( e,x,i ) {
-				UI.fireEvent ('RequestRegionSet');
+				UI.fireEvent ('RequestSetSelection');
 			}, false );
 
 			main_context.addOption ('Reset Zoom', function( e ) {
@@ -2863,14 +2863,14 @@
 		// // Zoom selection
 		var btn_zoom_selection = d.createElement ('button');
 		btn_zoom_selection.setAttribute('tabIndex', -1);
-		btn_zoom_selection.className = 'pk_btn fa_btn fas fa-search pk_inact';
+		btn_zoom_selection.className = 'pk_btn fa_btn fas fa-search';
 		btn_zoom_selection.innerHTML = '<span>Zoom in selection</span>';
 		
 		var sel_spans = selection.getElementsByClassName('pk_dat');
 		UI.listenFor ('DidCreateRegion', function ( region ) {
 			copy_btn.classList.remove ('pk_inact');
 			cut_btn.classList.remove ('pk_inact');
-			btn_zoom_selection.classList.remove ('pk_inact');
+			// btn_zoom_selection.classList.remove ('pk_inact');
 			btn_clear_selection.classList.remove  ('pk_inact');
 			
 			if (region)
@@ -2884,7 +2884,7 @@
 		UI.listenFor ('DidDestroyRegion', function () {
 			copy_btn.classList.add ('pk_inact');
 			cut_btn.classList.add  ('pk_inact');
-			btn_zoom_selection.classList.add  ('pk_inact');
+			// btn_zoom_selection.classList.add  ('pk_inact');
 			btn_clear_selection.classList.add  ('pk_inact');
 
 			if (!sel_spans[0]) sel_spans = document.querySelectorAll('.pk_sellist .pk_dat');
@@ -2899,7 +2899,7 @@
 		};
 
 		btn_zoom_selection.onclick = function () {
-			// UI.fireEvent( 'RequestZoomSelection');
+			UI.fireEvent( 'RequestAddBarSelection');
 		};
 
 		selection.appendChild ( btn_clear_selection );
