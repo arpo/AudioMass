@@ -530,7 +530,20 @@
 			wavesurfer.skipBackward ( val )
 		});
 		app.listenFor ('RequestSkipFront', function( val ) {
+			
+			const currentTime = wavesurfer.getCurrentTime(); 
 			wavesurfer.skipForward ( val );
+			const selectionData = app.engine.GetSelection();			
+			let setLength = 0;
+			if(selectionData) {
+				setLength = selectionData.duration + val;
+			}
+
+			if (app.ui.KeyHandler.keyMap[16]) {
+				app.engine.SetSelection(currentTime, wavesurfer.getCurrentTime() + setLength);
+				// app.fireEvent ('RequestSeekTo', (wavesurfer.getCurrentTime() + setLength) / wavesurfer.getDuration ());
+			}
+			
 		});
 		app.listenFor ('RequestSeekTo', function( val ) {
 			if (val > 1.0) return ;

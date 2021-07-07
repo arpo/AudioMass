@@ -787,8 +787,10 @@ a {
 	height: 100%;
 	min-width: 50px;
 	position: absolute;
-	background: #246e6e;
+	background: #ffd702;
 	opacity: 0.85;
+	border-radius: 8px;
+  overflow: hidden;
 }
 
 .pk_wavescroll .pk_wavedrag_l {
@@ -796,9 +798,8 @@ a {
 	width: 12px;
 	height: 100%;
 	cursor: col-resize;
-	background-color: #205f5f;
+	background-color: #98820a;
 	overflow: hidden;
-  border-radius: 8px;
 }
 
 .pk_wavescroll .pk_wavedrag_r {
@@ -806,9 +807,8 @@ a {
 	width: 12px;
 	height: 100%;
 	cursor: col-resize;
-	background-color: #205f5f;
+	background-color: #98820a;
 	overflow: hidden;
-  border-radius: 8px;
 }
 
 .pk_wavescroll .pk_wavedrag_cc {
@@ -818,7 +818,8 @@ a {
 	font-size: 9px;
 	margin-top: 8px;
 	text-transform: uppercase;
-	color: #4bd6d6;
+	color: #98820a;
+	white-space: nowrap;
 }
 
 .pk_play.pk_act {
