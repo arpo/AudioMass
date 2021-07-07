@@ -25,7 +25,6 @@
 			]
 		});
 		this.wavesurfer = wavesurfer;
-		this.wavesurfer.regions.params.hasSelection = false;
 
 		var AudioUtils = new app._deps.audioutils ( app, wavesurfer );
 		q.is_ready = false;
@@ -626,11 +625,10 @@
 		}, [16, 88]);
 		app.ui.KeyHandler.addCallback ('KeyShiftSelectAll' + app.id, function ( key ) {
 			if (app.ui.InteractionHandler.on) return ;
-			if(wavesurfer.regions.params.hasSelection) {
-				wavesurfer.regions.params.hasSelection = false;
+
+			if(app.engine.hasSelection()) {
 				app.fireEvent ('RequestDeselect');
 			} else {
-				wavesurfer.regions.params.hasSelection = true;
 				app.fireEvent ('RequestSelect');
 			}
 		}, [16, 65]);
@@ -858,6 +856,13 @@
 			);
 
 			return (copybuffer);
+		};
+
+		this.hasSelection = () => {
+			let rv = true;
+			if(!this.GetSelection()) rv = false;
+			else if(this.GetSelection().duration === 0) rv = false;
+			return rv;
 		};
 
 		this.PlayBuff = function ( buff_arr, chans, sample_rate, aud_cont ) {
