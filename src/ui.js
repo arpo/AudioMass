@@ -189,34 +189,35 @@
 										}
 									}
 								  ],
-								  body:'<div class="pk_row"><label for="k0">File Name</label>' + 
-									'<input style="min-width:250px" placeholder="mp3 filename" value="audiomass-output.mp3" ' +
-									'class="pk_txt" type="text" id="k0" /></div>'+
+								  body: `
+									<div class="pk_row"><label for="k0">File Name</label> 
+										<input style="min-width:250px" placeholder="mp3 filename" value="audiomass-output.mp3" class="pk_txt" type="text" id="k0" /></div>
 
-									'<div class="pk_row" id="frmtex" style="padding-bottom:4px"><label style="display:inline">Format</label>'+
-									'<input type="radio" class="pk_check" id="k01" name="frmtex" checked value="mp3">'+
-									'<label for="k01">mp3</label>' +
-									'<input type="radio" class="pk_check" id="k02" name="frmtex" value="wav">'+  
-									'<label for="k02">wav <i>(44100hz)</i></label>' +
-									'</div>' +
+										<div class="pk_row" id="frmtex" style="padding-bottom:4px"><label style="display:inline">Format</label>
+											<input type="radio" class="pk_check" id="k01" name="frmtex" checked value="mp3">
+											<label for="k01">mp3</label>
+											<input type="radio" class="pk_check" id="k02" name="frmtex" value="wav">  
+											<label for="k02">wav <i>(44100hz)</i></label>
+										</div>
 
-									'<div class="pk_row" id="frmtex-mp3"><input type="radio" class="pk_check" id="k1" name="rdslnc" checked value="128">'+ 
-									'<label  for="k1">128kbps</label>' +
-									'<input type="radio" class="pk_check"  id="k2" name="rdslnc" value="192">'+
-									'<label for="k2">192kbps</label>'+
-									'<input type="radio" class="pk_check"  id="k3" name="rdslnc" value="256">'+
-									'<label for="k3">256kbps</label></div>'+
-									'<div class="pk_row" style="padding-bottom:5px">' +
-									'<input type="radio" class="pk_check" id="k6" name="chnl" checked value="mono">'+
-									'<label for="k6">Mono</label>'+
-									'<input type="radio" class="pk_check pk_stereo" id="k7" name="chnl" value="stereo">'+
-									'<label for="k7">Stereo</label>'+
-									'</div>'+
-									'<div class="pk_row">' + 
-									'<input type="radio" class="pk_check" id="k4" name="xport" checked value="whole">'+
-									'<label for="k4">Export whole file</label>'+
-									'<input type="radio" class="pk_check" id="k5" name="xport" value="sel">'+
-									'<label class="pk_lblmp3" for="k5">Export Selection Only</label></div>',
+										<div class="pk_row" id="frmtex-mp3"><input type="radio" class="pk_check" id="k1" name="rdslnc" checked value="128"> 
+											<label  for="k1">128kbps</label>
+											<input type="radio" class="pk_check"  id="k2" name="rdslnc" value="192">
+											<label for="k2">192kbps</label>
+											<input type="radio" class="pk_check"  id="k3" name="rdslnc" value="256">
+											<label for="k3">256kbps</label></div>
+											<div class="pk_row" style="padding-bottom:5px">
+											<input type="radio" class="pk_check" id="k6" name="chnl" checked value="mono">
+											<label for="k6">Mono</label>
+											<input type="radio" class="pk_check pk_stereo" id="k7" name="chnl" value="stereo">
+											<label for="k7">Stereo</label>
+										</div>
+										<div class="pk_row"> 
+											<input type="radio" class="pk_check" id="k4" name="xport" checked value="whole">
+											<label for="k4">Export whole file</label>
+											<input type="radio" class="pk_check" id="k5" name="xport" value="sel">
+											<label class="pk_lblmp3" for="k5">Export Selection Only</label>
+									</div>`,
 									
 								  setup:function( q ) {
 								  		var wv = PKAudioEditor.engine.wavesurfer;
@@ -349,8 +350,11 @@
 										}
 									}
 								  ],
-								  body:'<label for="k00">Insert url</label>' + 
-									'<input style="min-width:250px" placeholder="Please insert url" class="pk_txt" type="text" id="k00" />',
+								  body:`
+										<label for="k00">Insert url</label>
+										<input style="min-width:250px" placeholder="Please insert url" class="pk_txt" type="text" id="k00" />
+									`
+									,
 								  setup:function( q ) {
 
 								  	  app.fireEvent ('RequestPause');
@@ -445,18 +449,18 @@
 									}
 								],
 
-								body:'<p>Please choose source...</p>' +
-									'<div class="pk_row"><input type="radio" class="pk_check" id="sl1" name="rdslnc" checked value="whole">'+ 
-									'<label style="vertical-align:top" for="sl1">Whole Track</label>' +
-									'<input type="radio" class="pk_check"  id="sl2" name="rdslnc" value="sel">'+
-									'<label style="vertical-align:top" class="pk_lblsel" for="sl2">Selection'+
-									'<i style="display:block;font-size:11px;margin-top:-5px"></i></label>'+
-									'<input type="radio" class="pk_check"  id="sl3" name="rdslnc" value="copy">'+
-									'<label style="vertical-align:top" class="pk_lblsel2" for="sl3">"Copy" clipboard/buffer</label></div>'+
-
-									'<div class="pk_row"><label for="slk0">Draft Name</label>' + 
-									'<input style="min-width:250px" placeholder="(optional) filename" maxlength="100" ' +
-									'class="pk_txt" type="text" id="slk0" /></div>',
+								body:`
+										<p>Please choose source...</p>
+										<div class="pk_row"><input type="radio" class="pk_check" id="sl1" name="rdslnc" checked value="whole"> 
+										<label style="vertical-align:top" for="sl1">Whole Track</label>
+										<input type="radio" class="pk_check"  id="sl2" name="rdslnc" value="sel">
+										<label style="vertical-align:top" class="pk_lblsel" for="sl2">Selection
+										<i style="display:block;font-size:11px;margin-top:-5px"></i></label>
+										<input type="radio" class="pk_check"  id="sl3" name="rdslnc" value="copy">
+										<label style="vertical-align:top" class="pk_lblsel2" for="sl3">"Copy" clipboard/buffer</label></div>
+										<div class="pk_row"><label for="slk0">Draft Name</label> 
+										<input style="min-width:250px" placeholder="(optional) filename" maxlength="100" class="pk_txt" type="text" id="slk0" /></div>
+									`,
 
 								setup:function( q ) {
 									// check if selection
@@ -508,11 +512,13 @@
 
 							app.listenFor ('DidStoreDB', function ( obj, e ) {
 									var name = obj.id;
-									var txt = '<div style="padding:2px 0">id: ' + name + '</div>'+
-										'<div style="padding:2px 0"><span>durr: ' + obj.durr + 's</span>'+
-										'&nbsp;&nbsp;&nbsp;'+
-										'<span>chan: ' + (obj.chans === 1 ? 'mono' : 'stereo') + '</span></div>'+
-										'<div style="padding:2px 0"><img src="' + obj.thumb + '" /></div>';
+									var txt = `
+										<div style="padding:2px 0">id: ${name}</div>
+										<div style="padding:2px 0"><span>durr: ${obj.durr}s</span>
+											&nbsp;&nbsp;&nbsp;
+										<span>chan: ${(obj.chans === 1 ? 'mono' : 'stereo')}</span></div>
+										<div style="padding:2px 0"><img src="${obj.thumb}" /></div>
+										`;
 
 									new PKSimpleModal ({
 										title : 'Succesfully Stored',
