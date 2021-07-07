@@ -2814,7 +2814,7 @@
 		selection.innerHTML = '<div class="pk_sellist">' + 
 			'<div><span class="title">Start:</span><span class="s_s pk_dat">-</span></div>' + 
 			'<div><span class="title">End:</span><span class="s_e pk_dat">-</span></div>' + 
-			'<div><span  class="title">Duration:</span><span class="s_d pk_dat">-</span></div>' +
+			'<div><span  class="title">Dur:</span><span class="s_d pk_dat">-</span></div>' +
 		'</div>';
 		
 		var btn_clear_selection = d.createElement ('button');

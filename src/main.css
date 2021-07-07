@@ -822,19 +822,19 @@ a {
 }
 
 .pk_play.pk_act {
-	background: #da4f4f;
-	background: linear-gradient(-75deg, #d01111, #ff8d8d);
+	background: #ff0000;
+	/* background: linear-gradient(-75deg, #d01111, #ff8d8d); */
 }
 
 .pk_loop.pk_act {
 	background: gold;
-	background: linear-gradient(-65deg, #43C6AC, #F8FFAE);
+	/* background: linear-gradient(-65deg, #43C6AC, #F8FFAE); */
 }
 
 .wavesurfer-region {
-	opacity: 0.41;
+	opacity: 0.3;
 	background-color: rgba(30, 30, 162, 1.0);
-	background: linear-gradient(-65deg, #43b7c6, #d186d2);
+	background: linear-gradient(-65deg, #43b7c6, #0ca918);
 }
 
 .pk_inact,
