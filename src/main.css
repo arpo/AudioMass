@@ -329,7 +329,6 @@ a {
 	float: none;
 	clear: both;
 	margin-right: 0;
-	padding-top: 7px;
 }
 
 .pk_ctns {
@@ -482,14 +481,14 @@ a {
 
 .pk_selection .pk_sellist {
 	color: #e1e1e1;
-	margin: 5px;
-	width: 346px;
+	margin-left: -12px;
+	padding-top: 11px;
 }
 
-.pk_sellist .pk_title {
+/* .pk_sellist .pk_title {
 	line-height: 35px;
 	float: left;
-}
+} */
 
 .pk_selection .pk_sellist div {
 	float: left;
@@ -1616,12 +1615,12 @@ input.pk_horiz.pk_w180 {
 		line-height: 24px;
 	}
 
-	.pk_sellist .pk_title {
+	/* .pk_sellist .pk_title {
 		font-size: 10px;
-	}
+	} */
 
 	.pk_selection .pk_sellist {
-		width: 296px;
+		padding-top: 3px;
 	}
 
 	.pk_tb .pk_selection .pk_btn {
@@ -1654,9 +1653,9 @@ input.pk_horiz.pk_w180 {
 	/* .pk_selection .pk_sellist div{
 		margin:0 16px 0 0;
 	} */
-	.pk_sellist .pk_title {
+	/* .pk_sellist .pk_title {
 		display: none;
-	}
+	} */
 
 	/* .pk_tb .pk_selection .pk_btn{
 		width:34px;

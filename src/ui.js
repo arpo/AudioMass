@@ -2812,7 +2812,6 @@
 		var selection = d.createElement( 'div' );
 		selection.className = 'pk_selection';
 		selection.innerHTML = '<div class="pk_sellist">' + 
-			'<span class="pk_title">Selection:</span>' + 
 			'<div><span class="title">Start:</span><span class="s_s pk_dat">-</span></div>' + 
 			'<div><span class="title">End:</span><span class="s_e pk_dat">-</span></div>' + 
 			'<div><span  class="title">Duration:</span><span class="s_d pk_dat">-</span></div>' +
