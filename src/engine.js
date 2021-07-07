@@ -795,7 +795,7 @@
 		 });
 
 		 app.listenFor ('RequestAddBarSelection', function ( e ) {
-			 app.engine.SetSelection(wavesurfer.getCurrentTime(), wavesurfer.getCurrentTime() + app.engine.getBarDur());
+			 app.engine.SetSelection(wavesurfer.getCurrentTime(), wavesurfer.getCurrentTime() + app.engine.getBarDur() * 4);
 		 });
 
 		app.listenFor ('RequestSetSelection', function ( start, end ) {
@@ -803,7 +803,8 @@
 		});
 
 		var copy_buffer = null;
-
+		// Auto detect
+		// https://stackoverflow.com/questions/30110701/how-can-i-use-js-webaudioapi-for-beat-detection
 		this.currentBPM = 127;
 
 		this.getBeatDur = function () {

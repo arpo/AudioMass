@@ -2820,8 +2820,8 @@
 		// // Zoom selection
 		var btn_bar_selection = d.createElement ('button');
 		btn_bar_selection.setAttribute('tabIndex', -1);
-		btn_bar_selection.className = 'pk_btn fa_btn fas fa-search';
-		btn_bar_selection.innerHTML = '<span>Select a bar</span>';
+		btn_bar_selection.className = 'pk_btn fa_btn fas fas fa-arrows-alt-h';
+		btn_bar_selection.innerHTML = '<span>Select a loop</span>';
 		
 		var sel_spans = selection.getElementsByClassName('pk_dat');
 		UI.listenFor ('DidCreateRegion', function ( region ) {
