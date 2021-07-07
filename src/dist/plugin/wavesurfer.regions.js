@@ -280,9 +280,10 @@ var Region = function () {
                     position: 'absolute',
                     left: '0px',
                     top: '0px',
-                    width: '1%',
-                    maxWidth: '4px',
-                    height: '100%'
+                    width: '2%',
+                    maxWidth: '10px',
+                    height: '100%',
+                    backgroundColor: '#ffffff55'
                 };
                 this.style(handleLeft, css);
                 this.style(handleRight, css);

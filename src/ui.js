@@ -1814,10 +1814,16 @@
 		var wavedrag_right = d.createElement ( 'div' );
 		wavedrag_right.className = 'pk_wavedrag_r';
 
+
+		var wavedrag_centerContent = d.createElement ( 'div' );
+		wavedrag_centerContent.className = 'pk_wavedrag_cc';
+		wavedrag_centerContent.innerHTML = 'Drag and<br>resize me';
+
 		wavezoom.appendChild ( wavepoint );
 		wavedrag.appendChild ( wavedrag_left );
 		wavedrag.appendChild ( wavedrag_right );
 		wavezoom.appendChild ( wavedrag );
+		wavedrag.appendChild ( wavedrag_centerContent );
 		footer.appendChild ( wavezoom );
 
 		var temp = 0;
@@ -2456,7 +2462,7 @@
 				curr_cache.width = 18;
 				curr_cache.height = 26;
 				var curr_ctx = curr_cache.getContext('2d', {alpha:false});
-				curr_ctx.font = "29px Helvetica, Arial, sans-serif";
+				curr_ctx.font = "25px Helvetica, Arial, sans-serif";
 				curr_ctx.textAlign = "center";
 				curr_ctx.fillStyle = "#000";
 				curr_ctx.fillRect(0, 0, 18, 26);
