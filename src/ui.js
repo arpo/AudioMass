@@ -2850,15 +2850,18 @@
 
 		var dd_gridSize = d.createElement ('span');
 		dd_gridSize.innerHTML = `
-		<select name="gridSize" id="gridSize" class="inline">
-			<option value="0">1 bar</option>
-			<option value="1">2 bars</option>
-			<option value="2">4 bars</option>
-			<option value="3">0.25 beat</option>
-			<option value="4">0.5 beat</option>
-			<option value="5">1 beat</option>
-			<option value="6">2 beat</option>
-	</select>
+			<select name="gridSize" id="gridSize" class="inline">
+				<option value="0">1 bar</option>
+				<option value="1">2 bars</option>
+				<option value="2">4 bars</option>
+				<option value="3">0.25 beat</option>
+				<option value="4">0.5 beat</option>
+				<option value="5">1 beat</option>
+				<option value="6">2 beat</option>
+			</select>
+
+			<label for="name">BPM</label>
+			<input class="text-input" type="text" id="bpm" name="bpm" required minlength="2" maxlength="3" size="3" value="127">
 		`;
 
 		var sel_spans = selection.getElementsByClassName('pk_dat');

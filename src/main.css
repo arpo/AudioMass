@@ -1348,6 +1348,20 @@ select.inline {
 	height: 32px;
 }
 
+.text-input {
+	padding: 0 10px;
+	border: 1px solid #999;
+	border-radius: 21px;
+	font-size: 12px;
+	height: 25px;
+	outline: 0;
+	background: transparent;
+	color: #eee;
+	line-height: 24px;
+	font-weight: lighter;
+	margin: 0;
+}
+
 select option {
 	background: #333;
 	padding: 2px 0;

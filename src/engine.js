@@ -817,14 +817,13 @@
 		var copy_buffer = null;
 		// Auto detect
 		// https://stackoverflow.com/questions/30110701/how-can-i-use-js-webaudioapi-for-beat-detection
-		this.currentBPM = 127;
 
 		this.getBeatDur = function () {
-			return 60 / this.currentBPM;
+			return 60 / parseFloat(document.querySelector('#bpm').value);
 		};
 
 		this.getBarDur = function () {
-			return 60 * 4 / this.currentBPM;
+			return 60 * 4 / parseFloat(document.querySelector('#bpm').value);
 		};
 
 		this.getGridSize = () => {
