@@ -2828,7 +2828,6 @@
 		btn_clear_selection.className = 'pk_btn fa_btn extra-margin-left fas fa-ban pk_inact';
 		btn_clear_selection.innerHTML = '<span>Clear selection (Q key)</span>';
 
-		// // Zoom selection
 		var btn_bar_selection = d.createElement ('button');
 		btn_bar_selection.setAttribute('tabIndex', -1);
 		btn_bar_selection.className = 'pk_btn fa_btn fas fa-arrows-alt-h';
@@ -2848,6 +2847,20 @@
 					btn_snap_to_grid.classList.remove('pk_act');
 		});
 		
+
+		var dd_gridSize = d.createElement ('span');
+		dd_gridSize.innerHTML = `
+		<select name="gridSize" id="gridSize" class="inline">
+			<option value="0">1 bar</option>
+			<option value="1">2 bars</option>
+			<option value="2">4 bars</option>
+			<option value="3">0.25 beat</option>
+			<option value="4">0.5 beat</option>
+			<option value="5">1 beat</option>
+			<option value="6">2 beat</option>
+	</select>
+		`;
+
 		var sel_spans = selection.getElementsByClassName('pk_dat');
 		UI.listenFor ('DidCreateRegion', function ( region ) {
 			copy_btn.classList.remove ('pk_inact');
@@ -2888,6 +2901,7 @@
 		selection.appendChild ( btn_clear_selection );
 		selection.appendChild ( btn_bar_selection );
 		selection.appendChild ( btn_snap_to_grid );
+		selection.appendChild ( dd_gridSize );
 		toolbar.appendChild ( timing );		
 		
 		UI.listenFor ('DidChanToggle', function ( chan, val ) {

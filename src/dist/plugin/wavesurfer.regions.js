@@ -282,6 +282,7 @@ var Region = function () {
                     top: '0px',
                     width: '2%',
                     maxWidth: '10px',
+                    minWidth: '5px',
                     height: '100%',
                 };
                 this.style(handleLeft, css);

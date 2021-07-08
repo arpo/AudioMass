@@ -17,7 +17,7 @@
 			height:w.innerHeight - 168,
 			plugins: [
 				WaveSurfer.regions.create({
-					drag: false,
+					drag: true,
 					dragSelection: {
 						slop: 5
 					}
@@ -807,7 +807,7 @@
 		 });
 
 		 app.listenFor ('RequestAddBarSelection', function ( e ) {
-			 app.engine.SetSelection(wavesurfer.getCurrentTime(), wavesurfer.getCurrentTime() + app.engine.getBarDur() * 4);
+			 app.engine.SetSelection(wavesurfer.getCurrentTime(), wavesurfer.getCurrentTime() + app.engine.getGridSize());
 		 });
 
 		app.listenFor ('RequestSetSelection', function ( start, end ) {
@@ -827,10 +827,21 @@
 			return 60 * 4 / this.currentBPM;
 		};
 
+		this.getGridSize = () => {
+			const dd =  document.querySelector('#gridSize')
+			if (dd.value === '0') return this.getBarDur();
+			if (dd.value === '1') return this.getBarDur() * 2;
+			if (dd.value === '2') return this.getBarDur() * 4;
+
+			if (dd.value === '3') return this.getBeatDur() * 0.25;
+			if (dd.value === '4') return this.getBeatDur() * 0.5;
+			if (dd.value === '5') return this.getBeatDur();
+			if (dd.value === '6') return this.getBeatDur() * 2;			
+		}
+
 		this.getSnappedProgress = function (progress) {
 			const dur = wavesurfer.getDuration();
-			const gridSize = this.getBarDur();
-
+			const gridSize = this.getGridSize();
 			const progressTime = dur * progress;
 			let rv = (Math.round(progressTime / gridSize) * gridSize) / dur;
 			return rv;
@@ -838,7 +849,7 @@
 
 		this.getSnappedTimeStamp = function (TimeStamp) {
 			const dur = wavesurfer.getDuration();
-			const gridSize = this.getBarDur();
+			const gridSize = this.getGridSize();
 			let rv = Math.round(TimeStamp / gridSize) * gridSize;
 			return rv;
 		};
