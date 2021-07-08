@@ -549,7 +549,6 @@
 
 			if (app.ui.KeyHandler.keyMap[16]) {
 				app.engine.SetSelection(currentTime, wavesurfer.getCurrentTime() + setLength);
-				// app.fireEvent ('RequestSeekTo', (wavesurfer.getCurrentTime() + setLength) / wavesurfer.getDuration ());
 			}
 			
 		});
@@ -834,6 +833,13 @@
 
 			const progressTime = dur * progress;
 			let rv = (Math.round(progressTime / gridSize) * gridSize) / dur;
+			return rv;
+		};
+
+		this.getSnappedTimeStamp = function (TimeStamp) {
+			const dur = wavesurfer.getDuration();
+			const gridSize = this.getBarDur();
+			let rv = Math.round(TimeStamp / gridSize) * gridSize;
 			return rv;
 		};
 
@@ -2394,8 +2400,14 @@
 			}
 		});
 		wavesurfer.on( 'region-update-end', function () {
-			app.fireEvent ('DidCreateRegion', wavesurfer.regions.list[0]);
 
+			if(app.engine.snapToGrid) {
+				wavesurfer.regions.list[0].start = app.engine.getSnappedTimeStamp(wavesurfer.regions.list[0].start)
+				wavesurfer.regions.list[0].end = app.engine.getSnappedTimeStamp(wavesurfer.regions.list[0].end)
+			}
+
+			app.fireEvent ('DidCreateRegion', wavesurfer.regions.list[0]);
+			app.fireEvent ('RequestResize');
 			var start = wavesurfer.regions.list[0].start;
 			if (!wavesurfer.isPlaying ())
 				app.fireEvent ('RequestSeekTo', (start/wavesurfer.getDuration() ));
@@ -2411,7 +2423,6 @@
 			
 			var diff = drag_x - e.clientX;
 			// find diff percentage from full width...
-			
 			// drag the waveform now
 			app.fireEvent ('RequestPan', diff );
 			
