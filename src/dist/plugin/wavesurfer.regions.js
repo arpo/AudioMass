@@ -553,6 +553,7 @@ var Region = function () {
                     }
                 };
                 var onUp = function onUp(e) {
+
                     if (e.touches && e.touches.length > 1) {
                         return;
                     }
@@ -1136,6 +1137,7 @@ var RegionsPlugin = function () {
             });
 
             var eventUp = function eventUp(e) {
+                
                 if (e.touches && e.touches.length > 1) {
                     return;
                 }

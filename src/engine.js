@@ -26,6 +26,8 @@
 		});
 		this.wavesurfer = wavesurfer;
 
+		this.snapToGrid = false;
+
 		var AudioUtils = new app._deps.audioutils ( app, wavesurfer );
 		q.is_ready = false;
 		
@@ -526,6 +528,12 @@
 				app.fireEvent ('RequestSeekTo', wavesurfer.regions.list[0].start / wavesurfer.getDuration ());
 			}
 		});
+
+		app.listenFor ('RequestSetSnapToGrid', function () { // Toggle the button and set the boolean 
+			if (!q.is_ready) return ;		
+			app.fireEvent('DidSetSnapToGrid', (PKAudioEditor.engine.snapToGrid = (PKAudioEditor.engine.snapToGrid) ? false : true));
+		});
+
 		app.listenFor ('RequestSkipBack', function( val ) {
 			wavesurfer.skipBackward ( val )
 		});
@@ -734,12 +742,6 @@
 			});
 		})();
 		
-		// wavesurfer.container.addEventListener('dblclick', function(e){
-		// 	app.fireEvent ('RequestSelect', false, 
-		// 		[ wavesurfer.LeftProgress,
-		// 		wavesurfer.LeftProgress + wavesurfer.VisibleDuration ]
-		// 	);
-		// }, false);
 		wavesurfer.container.addEventListener ('dblclick', function( e ) {
 			if (!q.is_ready) return ;
 			if (!app.ui.KeyHandler.keyMap[16]) // Shift
@@ -824,6 +826,15 @@
 
 		this.getBarDur = function () {
 			return 60 * 4 / this.currentBPM;
+		};
+
+		this.getSnappedProgress = function (progress) {
+			const dur = wavesurfer.getDuration();
+			const gridSize = this.getBarDur();
+
+			const progressTime = dur * progress;
+			let rv = (Math.round(progressTime / gridSize) * gridSize) / dur;
+			return rv;
 		};
 
 		this.getSkipStepSize = function () {
@@ -2542,8 +2553,8 @@
 			}
 		}, false);
 		wave.addEventListener ('mouseup', function( e ) {
-			if (e.which === 3)
-			{
+
+			if (e.which === 3) {
 				if (wave.className !== '')
 				{
 					wave.className = '';
@@ -2552,7 +2563,7 @@
 					}, 20);
 				}
 				document.removeEventListener ('mousemove', drag_move);
-			}
+			} 
 		}, false);
 
 		app.fireEvent ('RequestResize');

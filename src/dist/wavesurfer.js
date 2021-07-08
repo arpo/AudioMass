@@ -626,7 +626,6 @@ var Drawer = function (_util$Observer) {
         key: 'handleEvent',
         value: function handleEvent(e, noPrevent) {
             !noPrevent && e.preventDefault();
-
             var clientX = (e.targetTouches && e.targetTouches[0]) ? e.targetTouches[0].clientX : e.clientX;
 
 
@@ -661,6 +660,7 @@ var Drawer = function (_util$Observer) {
             var _this2 = this;
 
             this.wrapper.addEventListener('click', function (e) {
+
             //    var scrollbarHeight = _this2.wrapper.offsetHeight - _this2.wrapper.clientHeight;
             //    if (scrollbarHeight != 0) {
                     // scrollbar is visible.  Check if click was on it
@@ -4334,27 +4334,16 @@ var WaveSurfer = function (_util$Observer) {
      {
         key: 'ForceDraw',
         value: function ForceDraw() {
-
             this.drawBuffer();
             var percent = this.backend.getPlayedPercents();
             var dur = this.getDuration();
             var left_offset = this.LeftProgress / dur;
 
-            // var lleft = (this.ActiveMarker - left_offset) * this.ZoomFactor * 100;
-            // var sleft = lleft + '%';
-            // if (lleft === 0) sleft = '1px';
-            // this.drawer.CursorMarker.style.left =  sleft;
-
             var ppp = (this.ActiveMarker - left_offset) * this.ZoomFactor;
             var minPxDelta = 1 / this.drawer.params.pixelRatio;
             var pos = Math.round(ppp * this.drawer.width) * minPxDelta;
 
-            //if (pos > -40) {
-                this.drawer.CursorMarker.style.transform = 'translate(' + pos + 'px,0)';
-            //}
-            //this.drawer.CursorMarker.style.transform = 'translate(' + pos + 'px,0)';
-
-           // this.drawer.ZMarker.style.left = (this.ActiveMarker  * 100) + '%';
+            this.drawer.CursorMarker.style.transform = 'translate(' + pos + 'px,0)';
             this.drawer.progress(percent, left_offset, this.ZoomFactor);
         }
 
@@ -4687,6 +4676,10 @@ var WaveSurfer = function (_util$Observer) {
         value: function seekTo(progress, stamp) {
             var _this8 = this;
 
+            if(PKAudioEditor.engine.snapToGrid) {
+                progress = PKAudioEditor.engine.getSnappedProgress(progress);
+            }
+
             // return an error if progress is not a number between 0 and 1
             if (typeof progress !== 'number' || !isFinite(progress) || progress < 0 || progress > 1) {
                 return console.error('Error calling wavesurfer.seekTo, parameter must be a number between 0 and 1!');
@@ -4710,14 +4703,12 @@ var WaveSurfer = function (_util$Observer) {
             if (this.VisibleDuration / duration + this.LeftProgress / duration > progress && progress > this.LeftProgress / duration) {
                 var left_offset = this.LeftProgress / duration;
                 // var rend_progress = (progress - left_offset) * (duration / this.VisibleDuration);
-
                 // this.drawer.CursorMarker.style.left = rend_progress * 100 + '%';
 
                 var ppp = (progress - left_offset) * this.ZoomFactor;
                 var minPxDelta = 1 / this.drawer.params.pixelRatio;
                 var pos = Math.round(ppp * this.drawer.width) * minPxDelta;
                 this.drawer.CursorMarker.style.transform = 'translate(' + pos + 'px,0)';
-
 
                 //var rend_progress2 = (progress - left_offset);
                 //this.drawer.ZMarker.style.left = progress * 100 + '%';
@@ -4745,13 +4736,13 @@ var WaveSurfer = function (_util$Observer) {
                 this.drawer.progress(0);
             }
 
-            this.backend.seekTo(progress * this.getDuration());
+            let seekTo = progress * this.getDuration();
+            this.backend.seekTo(seekTo);
 
             if (!paused) {
                 this.backend.play();
             }
             //this.params.scrollParent = oldScrollParent;
-
             this.fireEvent('seek', progress, stamp);
         }
 

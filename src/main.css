@@ -832,6 +832,11 @@ a {
 	/* background: linear-gradient(-65deg, #43C6AC, #F8FFAE); */
 }
 
+.pk_snapToGrid.pk_act {
+	background: #00ff98;
+	/* background: linear-gradient(-65deg, #43C6AC, #F8FFAE); */
+}
+
 .wavesurfer-region {
 	opacity: 0.3;
 	background-color: rgba(30, 30, 162, 1.0);

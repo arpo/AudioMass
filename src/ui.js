@@ -2825,14 +2825,28 @@
 		
 		var btn_clear_selection = d.createElement ('button');
 		btn_clear_selection.setAttribute('tabIndex', -1);
-		btn_clear_selection.className = 'pk_btn fa_btn extra-margin-left fas fas fa-ban pk_inact';
+		btn_clear_selection.className = 'pk_btn fa_btn extra-margin-left fas fa-ban pk_inact';
 		btn_clear_selection.innerHTML = '<span>Clear selection (Q key)</span>';
 
 		// // Zoom selection
 		var btn_bar_selection = d.createElement ('button');
 		btn_bar_selection.setAttribute('tabIndex', -1);
-		btn_bar_selection.className = 'pk_btn fa_btn fas fas fa-arrows-alt-h';
+		btn_bar_selection.className = 'pk_btn fa_btn fas fa-arrows-alt-h';
 		btn_bar_selection.innerHTML = '<span>Select a loop</span>';
+
+		// Snap to grid toggle
+		var btn_snap_to_grid = d.createElement ('button');
+		btn_snap_to_grid.setAttribute('tabIndex', -1);
+		btn_snap_to_grid.className = 'p pk_btn fa_btn pk_snapToGrid fas fa-grip-lines-vertical';
+		btn_snap_to_grid.innerHTML = '<span>Snap to grid</span>';
+		btn_snap_to_grid.onclick = function() {
+			UI.fireEvent('RequestSetSnapToGrid');
+			this.blur();
+		};
+		UI.listenFor('DidSetSnapToGrid', function( val ) {
+			val ? btn_snap_to_grid.classList.add('pk_act') :
+					btn_snap_to_grid.classList.remove('pk_act');
+		});
 		
 		var sel_spans = selection.getElementsByClassName('pk_dat');
 		UI.listenFor ('DidCreateRegion', function ( region ) {
@@ -2873,6 +2887,7 @@
 
 		selection.appendChild ( btn_clear_selection );
 		selection.appendChild ( btn_bar_selection );
+		selection.appendChild ( btn_snap_to_grid );
 		toolbar.appendChild ( timing );		
 		
 		UI.listenFor ('DidChanToggle', function ( chan, val ) {
