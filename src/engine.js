@@ -146,6 +146,7 @@
 		};
 
 		this.LoadFile = function ( e ) {
+			
 			if (e.files.length > 0)
 			{
 				if (e.files[0].type == "audio/mp3"
@@ -448,6 +449,15 @@
 
 				app.el.classList.remove ('pk_mono');
 			}
+
+			const audio_context = wavesurfer.backend.getAudioContext();
+			if (audio_context && wavesurfer.backend.buffer) {
+				// console.log(audio_context);
+				// console.log(wavesurfer.backend.buffer);
+				// const bpm = getBPM(audio_context, wavesurfer.backend.buffer);
+				// console.log(bpm);
+			}
+
 			// ---
 		});
 

@@ -1,6 +1,6 @@
 {
-  "name": "Audiomass - Audio Editor",
-  "short_name": "Audiomass - Audio Editor",
+  "name": "LoopMass",
+  "short_name": "LoopMass",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",

@@ -5278,7 +5278,6 @@ var WaveSurfer = function (_util$Observer) {
         key: 'loadBuffer',
         value: function loadBuffer(url, peaks, duration) {
             var _this11 = this;
-
             var load = function load(action) {
                 if (action) {
                     _this11.tmpEvents.push(_this11.once('ready', action));
