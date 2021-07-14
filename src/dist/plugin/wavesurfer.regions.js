@@ -396,6 +396,7 @@ var Region = function () {
             /* Loop playback. */
             this.on('out', function () {
                 //debugger;
+                console.log(_this3.start);
                 if (_this3.loop) {
                     _this3.wavesurfer.play(_this3.start);
                 } else {

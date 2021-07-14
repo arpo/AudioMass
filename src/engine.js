@@ -394,7 +394,7 @@
 				bottom = (app.ui.BarBtm.on ? app.ui.BarBtm.height : 0);
 			}
 
-			wavesurfer.setHeight( (h < 280 ? 280 : h) - 250 - bottom);
+			wavesurfer.setHeight( (h < 280 ? 280 : h) - 350 - bottom);
 			// app.fireEvent ('DidResize');
 		});
 

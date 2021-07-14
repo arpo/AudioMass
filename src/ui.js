@@ -2812,8 +2812,6 @@
 			UI.fireEvent( 'RequestFXUI_Silence');			
 			this.blur();
 		};
-
-		
 		
 		var selection = d.createElement( 'div' );
 		selection.className = 'pk_selection';
@@ -2828,10 +2826,10 @@
 		btn_clear_selection.className = 'pk_btn fa_btn extra-margin-left fas fa-ban pk_inact';
 		btn_clear_selection.innerHTML = '<span>Clear selection (Q key)</span>';
 
-		var btn_bar_selection = d.createElement ('button');
-		btn_bar_selection.setAttribute('tabIndex', -1);
-		btn_bar_selection.className = 'pk_btn fa_btn fas fa-arrows-alt-h';
-		btn_bar_selection.innerHTML = '<span>Select a loop</span>';
+		// var btn_bar_selection = d.createElement ('button');
+		// btn_bar_selection.setAttribute('tabIndex', -1);
+		// btn_bar_selection.className = 'pk_btn fa_btn fas fa-arrows-alt-h';
+		// btn_bar_selection.innerHTML = '<span>Select a loop</span>';
 
 		// Snap to grid toggle
 		var btn_snap_to_grid = d.createElement ('button');
@@ -2860,15 +2858,27 @@
 				<option value="6">2 beat</option>
 			</select>
 
-			<label for="name">BPM</label>
-			<input class="text-input" type="text" id="bpm" name="bpm" required minlength="2" maxlength="3" size="3" value="127">
+			<span class="mj_ui_el_wrapper">
+				<label for="name">BPM</label>
+				<input class="text-input" type="text" id="bpm" name="bpm" required minlength="2" maxlength="3" size="3" value="127">
+			<span>
 		`;
+
+		// Snap to grid toggle
+		var btn_save_region = d.createElement ('button');
+		btn_save_region.setAttribute('tabIndex', -1);
+		btn_save_region.className = 'p pk_btn fa_btn fas fas fa-bookmark pk_inact';
+		btn_save_region.innerHTML = '<span>Bookmark region</span>';
+		btn_save_region.onclick = function() {
+			UI.fireEvent('RequestSetSnapToGrid');
+			this.blur();
+		};
 
 		var sel_spans = selection.getElementsByClassName('pk_dat');
 		UI.listenFor ('DidCreateRegion', function ( region ) {
 			copy_btn.classList.remove ('pk_inact');
 			cut_btn.classList.remove ('pk_inact');
-			// btn_bar_selection.classList.remove ('pk_inact');
+			btn_save_region.classList.remove ('pk_inact');
 			btn_clear_selection.classList.remove  ('pk_inact');
 			
 			if (region)
@@ -2882,7 +2892,7 @@
 		UI.listenFor ('DidDestroyRegion', function () {
 			copy_btn.classList.add ('pk_inact');
 			cut_btn.classList.add  ('pk_inact');
-			// btn_bar_selection.classList.add  ('pk_inact');
+			btn_save_region.classList.add  ('pk_inact');
 			btn_clear_selection.classList.add  ('pk_inact');
 
 			if (!sel_spans[0]) sel_spans = document.querySelectorAll('.pk_sellist .pk_dat');
@@ -2896,14 +2906,15 @@
 			this.blur ();
 		};
 
-		btn_bar_selection.onclick = function () {
-			UI.fireEvent( 'RequestAddBarSelection');
-			this.blur ();
-		};
+		// btn_bar_selection.onclick = function () {
+		// 	UI.fireEvent( 'RequestAddBarSelection');
+		// 	this.blur ();
+		// };
 
 		selection.appendChild ( btn_clear_selection );
-		selection.appendChild ( btn_bar_selection );
+		// selection.appendChild ( btn_bar_selection );
 		selection.appendChild ( btn_snap_to_grid );
+		selection.appendChild ( btn_save_region );
 		selection.appendChild ( dd_gridSize );
 		toolbar.appendChild ( timing );		
 		
