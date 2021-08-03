@@ -15,6 +15,15 @@
 
 		var events = {};
 
+
+
+		q.idIndex = 0;
+		q.getId = () => {
+			return (
+				performance.now().toString(36).replace('.', '') + (q.idIndex++ % 1024).toString(36)
+			);
+		};
+
 		q.fireEvent = function ( eventName, value, value2 ) {
 			var group = events[eventName];
 			if (!group) return (false);
@@ -60,6 +69,7 @@
 
 			// init libraries
 			q.ui     = new q._deps.ui ( q ); q._deps.uifx ( q );
+			q.regionMate = new q._deps.regionMate ( q );
 			q.engine = new q._deps.engine ( q );
 			q.state  = new q._deps.state ( 4, q );
 			q.rec    = new q._deps.rec ( q );

@@ -191,7 +191,7 @@
 								  ],
 								  body: `
 									<div class="pk_row"><label for="k0">File Name</label> 
-										<input style="min-width:250px" placeholder="mp3 filename" value="audiomass-output.mp3" class="pk_txt" type="text" id="k0" /></div>
+										<input style="min-width:250px" placeholder="mp3 filename" value="loopmass-output.mp3" class="pk_txt" type="text" id="k0" /></div>
 
 										<div class="pk_row" id="frmtex" style="padding-bottom:4px"><label style="display:inline">Format</label>
 											<input type="radio" class="pk_check" id="k01" name="frmtex" checked value="mp3">
@@ -2870,7 +2870,7 @@
 		btn_save_region.className = 'p pk_btn fa_btn fas fas fa-bookmark pk_inact';
 		btn_save_region.innerHTML = '<span>Bookmark region</span>';
 		btn_save_region.onclick = function() {
-			UI.fireEvent('RequestSetSnapToGrid');
+			UI.fireEvent('RequestBookmarkRegion');
 			this.blur();
 		};
 
